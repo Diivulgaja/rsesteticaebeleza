@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosângela Estética e Beleza - Agendamento</title>
+    
+    <!-- SEO e Open Graph -->
+    <meta name="description" content="Especialistas em realçar sua beleza natural com técnicas avançadas de sobrancelhas e estética facial.">
+    <meta property="og:title" content="RôSouza Beleza e Estética | Agendamento">
+    <meta property="og:description" content="Agende seu horário! Técnicas exclusivas para realçar a beleza que já existe em você.">
+    <meta property="og:image" content="https://i.imgur.com/v0nXKRq.png">
+    <meta property="og:type" content="website">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nude: {
+                            50: '#FDFCFB', 
+                            100: '#F5EFEA',
+                            200: '#EAE1D9',
+                        },
+                        rose: {
+                            50: '#FCF8F8',
+                            100: '#F7EBEB',
+                            200: '#EED4D4',
+                            300: '#E0B6B6',
+                            400: '#CE9090',
+                            500: '#B96B6B',
+                            600: '#9E4E4E',
+                            700: '#833F3F',
+                            800: '#6D3636',
+                            900: '#5A2E2E',
+                        }
+                    },
+                    boxShadow: {
+                        'premium': '0 20px 40px -15px rgba(109, 83, 75, 0.08)',
+                        'premium-hover': '0 30px 60px -15px rgba(158, 78, 78, 0.15)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="text-stone-800 selection:bg-rose-200 selection:text-rose-900">
+
+    <!-- Header Glassmorphism Premium -->
+    <header class="bg-nude-50/80 backdrop-blur-xl sticky top-0 z-50 transition-all border-b border-nude-200/50" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="goToStep(0)">
+                <div class="relative overflow-hidden rounded-full border border-nude-200 bg-white p-1 shadow-sm transition-transform duration-500 group-hover:scale-105">
+                    <img src="https://i.imgur.com/v0nXKRq.png" alt="Logo RôSouza" class="h-10 w-10 object-contain">
+                </div>
+                <div>
+                    <h1 class="text-lg font-serif font-semibold text-stone-800 tracking-tight leading-none group-hover:text-rose-700 transition-colors">RôSouza Estética</h1>
+                    <p class="text-[9px] text-stone-400 font-bold tracking-[0.25em] uppercase mt-1">Beleza Avançada</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <a href="https://wa.me/5548996207529?text=Ol%C3%A1,%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" class="hidden md:flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-stone-400 hover:text-rose-600 transition-colors group">
+                    Fale Conosco <i data-lucide="arrow-up-right" class="w-3 h-3 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+
+        <!-- STEP 0: SERVIÇOS E HOME -->
+        <div id="step-0" class="step-content active animate-fadeIn">
+            <section id="hero-section" class="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-stone-900 shadow-2xl mb-10 md:mb-14">
+                <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-45" poster="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80">
+                    <source src="./Vídeo_com_Foco_nas_Sobrancelhas.mp4" type="video/mp4">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Estética Facial" class="w-full h-full object-cover">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-br from-stone-950 via-stone-900/80 to-stone-900/45"></div>
+                <div class="relative z-10 grid lg:grid-cols-[1.2fr_420px] gap-6 lg:gap-14 items-center px-4 py-8 md:px-10 md:py-14 xl:px-16 xl:py-16">
+                    <div class="reveal max-w-3xl text-stone-50">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(255,255,255,0.08)]">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+                            </span>
+                            <span class="text-[10px] font-bold tracking-[0.2em] uppercase text-white">Agenda aberta com consulta em tempo real</span>
+                        </div>
+
+                        <h2 class="text-[2.4rem] sm:text-5xl md:text-6xl xl:text-7xl font-serif font-normal leading-[0.98] tracking-tight mb-5">
+                            Sua próxima visita começa com um agendamento
+                            <span class="block italic text-rose-200">mais claro, rápido e elegante.</span>
+                        </h2>
+
+                        <p class="text-stone-300 text-[15px] md:text-xl font-light leading-relaxed max-w-2xl mb-8">
+                            Escolha seu procedimento, veja horários realmente disponíveis e confirme sua pré-reserva em poucos passos.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                            <button onclick="document.getElementById('services-grid').scrollIntoView({ behavior: 'smooth' })" class="bg-rose-600 text-white px-6 md:px-8 py-4 rounded-full font-semibold hover:bg-rose-50 hover:text-rose-900 transition-all duration-500 hover:shadow-[0_0_40px_rgba(158,78,78,0.45)] hover:-translate-y-1 flex items-center justify-center gap-3 text-sm tracking-wide">
+                                Escolher procedimento <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                            </button>
+                            <a href="https://wa.me/5548996207529?text=Ol%C3%A1,%20Gostaria%20de%20agendar%20um%20hor%C3%A1rio" target="_blank" class="px-6 md:px-8 py-4 rounded-full font-semibold bg-white/10 border border-white/15 text-white hover:bg-white hover:text-stone-900 transition-all duration-500 flex items-center justify-center gap-3 text-sm tracking-wide backdrop-blur-sm">
+                                Falar no WhatsApp <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-3xl">
+                            <div class="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-sm px-5 py-4">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-stone-300 font-bold mb-2">Atendimento</p>
+                                <p class="text-lg font-semibold text-white">Personalizado e cuidadoso</p>
+                            </div>
+                            <div class="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-sm px-5 py-4">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-stone-300 font-bold mb-2">Disponibilidade</p>
+                                <p class="text-lg font-semibold text-white">Agenda sincronizada</p>
+                            </div>
+                            <div class="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-sm px-5 py-4">
+                                <p class="text-[10px] uppercase tracking-[0.2em] text-stone-300 font-bold mb-2">Resultado</p>
+                                <p class="text-lg font-semibold text-white">Natural, elegante e preciso</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="reveal delay-100 relative lg:justify-self-end">
+                        <div class="rounded-[1.7rem] md:rounded-[2rem] border border-white/15 bg-white/10 backdrop-blur-xl shadow-glass p-5 md:p-7 text-white">
+                            <div class="flex items-center justify-between gap-4 mb-6">
+                                <div>
+                                    <p class="text-[10px] font-bold tracking-[0.22em] uppercase text-stone-300 mb-2">Como funciona</p>
+                                    <h3 class="font-serif text-3xl leading-none">Reserve com segurança</h3>
+                                </div>
+                                <div class="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
+                                    <i data-lucide="calendar-check-2" class="w-5 h-5"></i>
+                                </div>
+                            </div>
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                                    <div>
+                                        <p class="font-semibold">Escolha o procedimento ideal</p>
+                                        <p class="text-sm text-stone-300">Veja duração, valor e detalhes antes de avançar.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 text-white flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                                    <div>
+                                        <p class="font-semibold">Consulte horários reais</p>
+                                        <p class="text-sm text-stone-300">A disponibilidade já considera conflitos de agenda.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-2xl bg-white/10 border border-white/10 text-white flex items-center justify-center font-bold text-sm shrink-0">3</div>
+                                    <div>
+                                        <p class="font-semibold">Confirme sua pré-reserva</p>
+                                        <p class="text-sm text-stone-300">Finalize os dados e siga para o WhatsApp com segurança.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rounded-3xl bg-white text-stone-900 p-5">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="flex -space-x-2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Cliente">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100" alt="Cliente">
+                                        <div class="w-8 h-8 rounded-full border-2 border-white bg-stone-900 text-white flex items-center justify-center text-[10px] font-bold">+5k</div>
+                                    </div>
+                                    <div>
+                                        <div class="flex text-yellow-400"><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i></div>
+                                        <p class="text-xs text-stone-500">Avaliação média das clientes</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm leading-relaxed text-stone-600">“Atendimento cuidadoso, ambiente elegante e um resultado que respeitou totalmente meu rosto.”</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="value-strip" class="grid lg:grid-cols-3 gap-4 md:gap-6 mb-16 md:mb-24 mt-6 md:mt-8 reveal">
+                <div class="bg-white rounded-[1.6rem] md:rounded-[2rem] border border-nude-100 shadow-sm p-5 md:p-7 lg:col-span-2">
+                    <div class="flex items-start justify-between gap-6 flex-col md:flex-row">
+                        <div>
+                            <p class="text-xs font-bold text-rose-500 uppercase tracking-[0.2em] mb-3">Por que agendar por aqui</p>
+                            <h3 class="text-3xl md:text-4xl font-serif text-stone-900 leading-tight mb-3">Mais clareza na escolha. Menos atrito até a confirmação.</h3>
+                            <p class="text-stone-500 leading-relaxed max-w-2xl">A home foi reorganizada para destacar primeiro o que importa: serviço, disponibilidade, valor e facilidade de confirmação.</p>
+                        </div>
+                        <button onclick="document.getElementById('services-grid').scrollIntoView({ behavior: 'smooth' })" class="shrink-0 px-6 py-3 rounded-full bg-stone-900 text-white font-semibold hover:bg-rose-600 transition-all duration-300 flex items-center gap-2">Começar agora <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-rose-50 to-white rounded-[1.6rem] md:rounded-[2rem] border border-rose-100 shadow-sm p-5 md:p-7">
+                    <p class="text-xs font-bold text-stone-400 uppercase tracking-[0.2em] mb-3">Resumo da experiência</p>
+                    <ul class="space-y-3 text-stone-600 text-sm leading-relaxed">
+                        <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-rose-600 mt-0.5"></i><span>Seleção de procedimento mais objetiva</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-rose-600 mt-0.5"></i><span>Horários consultados em tempo real</span></li>
+                        <li class="flex items-start gap-3"><i data-lucide="check" class="w-4 h-4 text-rose-600 mt-0.5"></i><span>Pré-reserva com segurança antes do WhatsApp</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="services-grid" class="px-2 pt-2">
+                <div id="services-layout" class="grid xl:grid-cols-[1fr_300px] gap-8 items-start">
+                    <div>
+                        <div class="flex flex-col md:flex-row justify-between md:items-end gap-6 mb-12 reveal">
+                            <div class="space-y-3">
+                                <h3 class="text-xs font-bold text-rose-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                                    <i data-lucide="sparkles" class="w-4 h-4"></i> Procedimentos em destaque
+                                </h3>
+                                <h2 class="text-4xl md:text-5xl font-serif text-stone-800 tracking-tight">Escolha seu próximo cuidado</h2>
+                            </div>
+                            <p class="text-stone-500 max-w-xl text-sm md:text-right leading-relaxed">Compare valores, duração e tipo de resultado com mais facilidade. Toque no card para ver os detalhes e seguir para a agenda.</p>
+                        </div>
+
+                        <div id="category-filters" class="flex overflow-x-auto gap-3 pb-4 mb-10 scrollbar-hide -mx-2 px-2 md:mx-0 md:px-0 reveal delay-100">
+                            <!-- Filtros renderizados via JS -->
+                        </div>
+
+                        <div id="services-container" class="space-y-20">
+                            <!-- Serviços renderizados via JS -->
+                        </div>
+                    </div>
+
+                    <aside class="hidden xl:block sticky top-28 reveal delay-200">
+                        <div class="bg-white rounded-[2rem] border border-nude-100 shadow-premium p-7">
+                            <p class="text-xs font-bold text-stone-400 uppercase tracking-[0.2em] mb-3">Antes de agendar</p>
+                            <h3 class="text-3xl font-serif text-stone-900 leading-tight mb-4">Escolha com mais confiança</h3>
+                            <div class="space-y-4 text-sm text-stone-500 leading-relaxed">
+                                <p>Abra os detalhes do procedimento para entender melhor valor, duração e proposta do atendimento.</p>
+                                <p>Depois selecione a data desejada para consultar horários realmente livres na agenda.</p>
+                            </div>
+                            <div class="mt-6 pt-6 border-t border-nude-100 space-y-4">
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-stone-400">Atendimentos</span>
+                                    <span class="font-semibold text-stone-800">5k+</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-stone-400">Avaliação</span>
+                                    <span class="font-semibold text-stone-800">4.9/5</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-stone-400">Confirmação</span>
+                                    <span class="font-semibold text-stone-800">WhatsApp + agenda</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            
+            <section id="reviews-section" class="mb-24 reveal">
+                <div class="bg-white rounded-[1.8rem] md:rounded-[2.5rem] p-5 md:p-12 shadow-premium border border-nude-100 relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-72 h-72 bg-rose-50 rounded-full blur-[80px] opacity-70 pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col lg:flex-row justify-between gap-8 mb-10">
+                        <div class="max-w-2xl">
+                            <h3 class="text-xs font-bold text-rose-500 uppercase tracking-[0.2em] mb-3">Avaliações reais do Google</h3>
+                            <h2 class="text-4xl md:text-5xl font-serif text-stone-800 tracking-tight mb-4">O que as clientes dizem depois do atendimento</h2>
+                            <p class="text-stone-500 leading-relaxed text-lg font-light">Avaliações reais adicionadas manualmente a partir da listagem pública enviada do perfil da RôSouza no Google, incluindo comentários completos e avaliações sem comentário público.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 lg:w-[320px] shrink-0">
+                            <div class="bg-nude-50 rounded-3xl p-5 border border-nude-100">
+                                <span class="block text-4xl font-serif text-stone-800 mb-1 font-numbers flex items-center gap-2">5.0 <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i></span>
+                                <span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Notas exibidas</span>
+                            </div>
+                            <div class="bg-nude-50 rounded-3xl p-5 border border-nude-100">
+                                <span class="block text-4xl font-serif text-stone-800 mb-1 font-numbers">29</span>
+                                <span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Avaliações no Google</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="google-reviews-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+
+                    <div class="mt-8 flex justify-center">
+                        <button id="google-reviews-toggle" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-nude-200 text-stone-700 text-xs font-bold uppercase tracking-widest hover:border-rose-300 hover:text-rose-600 transition-all group">
+                            Ver mais avaliações <i data-lucide="chevron-down" class="w-4 h-4 transform transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-nude-100 pt-8 relative z-10">
+                        <p class="text-sm text-stone-500">Mostramos poucas avaliações em destaque e você pode expandir para ver mais depoimentos reais da listagem pública enviada do perfil da empresa no Google.</p>
+                        <a href="https://www.google.com/maps/place/R%C3%B4Souza+Servi%C3%A7os+de+beleza+e+Est%C3%A9tica/@-27.5913994,-48.5799873,21z/data=!4m8!3m7!1s0x952737857018a9f3:0x5a7b77b8c42b3709!8m2!3d-27.5914651!4d-48.5797144!9m1!1b1!16s%2Fg%2F11sb7fvzvc?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-900 text-white text-xs font-bold uppercase tracking-widest hover:bg-rose-600 transition-all group">
+                            Ver perfil no Google <i data-lucide="arrow-up-right" class="w-4 h-4 transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+<section id="specialist-section" class="mt-32 mb-10 reveal">
+                <div class="bg-white rounded-[1.8rem] md:rounded-[2.5rem] p-5 md:p-14 shadow-premium border border-nude-100 flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-24 relative overflow-hidden">
+                    <div class="absolute -top-32 -right-32 w-96 h-96 bg-rose-50 rounded-full blur-[80px] opacity-70 pointer-events-none"></div>
+                    
+                    <div class="w-full lg:w-5/12 space-y-8 relative z-10">
+                        <h3 class="text-xs font-bold text-rose-500 uppercase tracking-[0.2em]">A Especialista</h3>
+                        <h2 class="text-4xl lg:text-5xl font-serif text-stone-800 leading-tight">
+                            A arte de cuidar <br>
+                            <span class="italic text-stone-400">com precisão.</span>
+                        </h2>
+                        <p class="text-stone-500 leading-relaxed font-light text-lg">
+                            Com mais de 5 anos de dedicação exclusiva à estética avançada, meu propósito é proporcionar segurança, bem-estar e resultados que respeitam sua anatomia e sua essência.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-6 border-t border-nude-100">
+                            <div class="bg-nude-50 rounded-3xl p-5">
+                                <span class="block text-4xl font-serif text-stone-800 mb-1 font-numbers">5k+</span>
+                                <span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Atendimentos</span>
+                            </div>
+                            <div class="bg-nude-50 rounded-3xl p-5">
+                                <span class="block text-4xl font-serif text-stone-800 mb-1 font-numbers flex items-center gap-2">5.0 <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i></span>
+                                <span class="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Reviews em destaque</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-7/12 relative z-10">
+                        <div class="grid grid-cols-2 gap-4 md:gap-6" id="instagram-gallery-container">
+                            <!-- Imagens do Instagram -->
+                        </div>
+                        <div class="mt-8 flex justify-end">
+                            <a href="https://www.instagram.com/rosangela.esteticaebeleza/" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-stone-50 text-xs font-bold uppercase tracking-widest text-stone-600 hover:bg-stone-100 hover:text-rose-600 transition-all group">
+                                Acompanhe no Instagram <i data-lucide="arrow-right" class="w-4 h-4 transform transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-24 pt-12 pb-8 border-t border-nude-200 reveal">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+                    <div class="flex items-center gap-3">
+                        <img src="https://i.imgur.com/v0nXKRq.png" alt="Logo" class="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                        <div>
+                            <span class="block font-serif font-bold text-stone-800">RôSouza Estética</span>
+                            <span class="block text-[10px] text-stone-400 uppercase tracking-widest">Desde 2018</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-6 text-sm text-stone-500 font-medium">
+                        <a href="https://wa.me/5548996207529" class="hover:text-rose-600 transition-colors flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> (48) 99620-7529</a>
+                        <a href="#" target="_blank" class="hover:text-rose-600 transition-colors flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Rua Álvaro Cardoso, 116</a>
+                    </div>
+                </div>
+                <div class="mt-12 text-center text-xs text-stone-400 font-light">© <span id="year"></span> Todos os direitos reservados.</div>
+            </footer>
+        </div>
+
+        <!-- STEP 0.5: DETALHES DO SERVIÇO (Agora com Slider de Antes/Depois) -->
+        <div id="step-service-details" class="step-content">
+            <div class="max-w-5xl mx-auto pt-4 pb-20">
+                <button onclick="goToStep(0)" class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-stone-400 hover:text-stone-700 transition-colors group">
+                    <div class="p-2 rounded-full border border-stone-200 group-hover:border-stone-400 transition-colors">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    </div>
+                    Voltar ao Menu
+                </button>
+
+                <div class="bg-white rounded-[2.5rem] shadow-premium border border-nude-100 overflow-hidden flex flex-col md:flex-row">
+                    
+                    <!-- Área de Mídia (Pode ser Slider ou Imagem Simples) -->
+                    <div id="service-media-container" class="w-full md:w-1/2 min-h-[350px] md:min-h-full bg-nude-50 relative overflow-hidden group p-2">
+                        <!-- Injetado via JS -->
+                    </div>
+
+                    <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold tracking-widest uppercase mb-6 w-max">
+                            <i data-lucide="sparkles" class="w-3 h-3"></i> <span id="detail-category">Categoria</span>
+                        </div>
+                        
+                        <h1 id="detail-title" class="text-4xl md:text-5xl font-serif text-stone-800 leading-tight mb-4">Nome do Serviço</h1>
+                        
+                        <div class="flex items-center gap-6 text-sm text-stone-500 font-medium mb-8 pb-8 border-b border-stone-100">
+                            <span class="flex items-center gap-2 bg-stone-50 px-3 py-1.5 rounded-xl border border-stone-100">
+                                <i data-lucide="clock" class="w-4 h-4 text-stone-400"></i> <span id="detail-duration" class="font-numbers text-stone-700 font-bold">00 min</span>
+                            </span>
+                            <span class="flex items-center gap-2">
+                                Valor: <span id="detail-price" class="text-rose-600 font-serif font-bold text-2xl font-numbers tracking-tight">R$ 0,00</span>
+                            </span>
+                        </div>
+
+                        <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Sobre a Experiência</h3>
+                        <p id="detail-description" class="text-stone-600 font-light leading-relaxed text-[17px] mb-10">
+                            Descrição detalhada do serviço...
+                        </p>
+
+                        <button onclick="goToStep(1)" class="w-full px-10 py-5 rounded-2xl bg-stone-900 text-white font-semibold hover:bg-rose-600 transition-all duration-500 shadow-xl hover:shadow-[0_10px_30px_rgba(158,78,78,0.4)] hover:-translate-y-1 flex items-center justify-center gap-3">
+                            Quero agendar este cuidado <i data-lucide="calendar-heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 1: DATA E HORA -->
+        <div id="step-1" class="step-content">
+            <!-- (Conteúdo idêntico ao passo anterior, omitido no HTML base para poupar espaço, mantendo JS) -->
+            <div class="max-w-4xl mx-auto pt-4 pb-24">
+                <button onclick="goToStep('service-details')" class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-stone-400 hover:text-stone-700 transition-colors group">
+                    <div class="p-2 rounded-full border border-stone-200 group-hover:border-stone-400 transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i></div>
+                    Voltar aos Detalhes
+                </button>
+
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-serif text-stone-800 mb-3">Seu melhor momento</h2>
+                    <p class="text-stone-500 font-light">Selecione quando você deseja ser atendida.</p>
+                </div>
+
+                <div class="bg-white rounded-[2.5rem] shadow-premium border border-nude-100 p-8 md:p-12 mb-8">
+                    <div class="mb-12">
+                        <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6">1. Escolha a Data</h3>
+                        <div id="dates-container" class="flex overflow-x-auto pb-4 gap-4 scrollbar-hide -mx-2 px-2"></div>
+                    </div>
+                    <div class="w-full h-px bg-stone-100 mb-12"></div>
+                    <div id="time-section" class="opacity-30 transition-all duration-700 pointer-events-none">
+                        <h3 class="text-sm font-bold text-stone-800 uppercase tracking-widest mb-6">2. Escolha o Horário</h3>
+                        <div id="time-message" class="text-stone-400 text-sm font-light italic">Selecione uma data acima para visualizar as disponibilidades.</div>
+                        <div id="times-container" class="hidden grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3"></div>
+                    </div>
+                </div>
+
+                <div class="fixed bottom-0 left-0 right-0 p-5 bg-white/95 backdrop-blur-xl border-t border-stone-100 md:static md:bg-transparent md:border-0 md:p-0 z-40">
+                    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="hidden md:flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-nude-100 flex items-center justify-center text-stone-400"><i data-lucide="calendar-check" class="w-5 h-5"></i></div>
+                            <div>
+                                <p class="text-xs text-stone-400 font-bold uppercase tracking-wider mb-1">Resumo</p>
+                                <p id="summary-service-title" class="font-serif text-lg text-stone-800 leading-none">Aguardando seleção...</p>
+                            </div>
+                        </div>
+                        <button id="btn-continue-date" onclick="goToStep(2)" disabled class="w-full md:w-auto px-10 py-4 rounded-2xl font-bold text-white transition-all duration-300 flex items-center justify-center gap-2 bg-stone-200 text-stone-400 cursor-not-allowed">
+                            Continuar <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: FORMULÁRIO -->
+        <div id="step-2" class="step-content">
+            <!-- (Conteúdo idêntico ao passo anterior, formulário mantido) -->
+            <div class="max-w-3xl mx-auto pt-4 pb-24">
+                <button onclick="goToStep(1)" class="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-stone-400 hover:text-stone-700 transition-colors group">
+                    <div class="p-2 rounded-full border border-stone-200 group-hover:border-stone-400 transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i></div>
+                    Voltar aos Horários
+                </button>
+                <div class="text-center mb-10">
+                    <h2 class="text-4xl font-serif text-stone-800 mb-3">Quase lá...</h2>
+                    <p class="text-stone-500 font-light">Só precisamos de alguns dados para confirmar seu horário.</p>
+                </div>
+                <div class="bg-white rounded-[2.5rem] shadow-premium border border-nude-100 overflow-hidden">
+                    <div class="bg-nude-50 p-8 border-b border-nude-100 flex flex-col sm:flex-row gap-6 justify-between">
+                        <div>
+                            <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Selecionado</p>
+                            <h3 id="form-service-title" class="text-xl font-serif font-bold text-stone-800 mb-2">Serviço</h3>
+                            <p class="text-sm text-stone-500 flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4 text-rose-500"></i> <span id="form-date-time" class="font-medium font-numbers">Data</span></p>
+                        </div>
+                        <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-nude-100">
+                            <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1 text-center sm:text-right">Investimento</p>
+                            <p id="form-price" class="text-3xl text-rose-600 font-serif font-bold font-numbers">R$ 0,00</p>
+                        </div>
+                    </div>
+                    <div class="p-8 md:p-12 space-y-8">
+                        <div class="relative">
+                            <input id="input-name" type="text" class="peer w-full border-b-2 border-stone-200 bg-transparent pt-6 pb-2 text-stone-800 focus:border-rose-500 focus:outline-none transition-colors placeholder-transparent text-lg" placeholder="Nome">
+                            <label class="absolute left-0 top-0 text-xs font-bold uppercase tracking-widest text-stone-400 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-stone-400 peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-xs peer-focus:font-bold peer-focus:uppercase peer-focus:text-rose-500">Seu Nome Completo</label>
+                            <p id="error-name" class="text-rose-500 text-xs mt-2 hidden absolute">Por favor, nos diga seu nome.</p>
+                        </div>
+                        <div class="relative mt-10">
+                            <input id="input-phone" type="tel" class="peer w-full border-b-2 border-stone-200 bg-transparent pt-6 pb-2 text-stone-800 focus:border-rose-500 focus:outline-none transition-colors placeholder-transparent text-lg" placeholder="(00) 00000-0000">
+                            <label class="absolute left-0 top-0 text-xs font-bold uppercase tracking-widest text-stone-400 transition-all peer-placeholder-shown:top-6 peer-placeholder-shown:text-base peer-placeholder-shown:text-stone-400 peer-placeholder-shown:normal-case peer-focus:top-0 peer-focus:text-xs peer-focus:font-bold peer-focus:uppercase peer-focus:text-rose-500">WhatsApp</label>
+                            <p id="error-phone" class="text-rose-500 text-xs mt-2 hidden absolute">Precisamos do número para confirmar.</p>
+                        </div>
+                        <div class="relative mt-12">
+                            <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-3">Alguma observação? <span class="text-stone-300 font-normal lowercase">(opcional)</span></label>
+                            <textarea id="input-notes" class="w-full p-4 rounded-2xl bg-nude-50 border-none focus:ring-2 focus:ring-rose-200 outline-none transition-all resize-none h-24 text-stone-600 placeholder-stone-300" placeholder="Primeira vez, alergias..."></textarea>
+                        </div>
+                        <div class="pt-6">
+                            <button onclick="submitBooking()" class="w-full bg-stone-900 hover:bg-rose-600 text-white font-bold text-lg py-5 rounded-2xl shadow-premium hover:shadow-[0_10px_30px_rgba(158,78,78,0.4)] transition-all duration-500 transform hover:-translate-y-1 flex justify-center items-center gap-3">
+                                Confirmar Agendamento <i data-lucide="check" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: SUCESSO -->
+        <div id="step-3" class="step-content">
+            <!-- (Conteúdo idêntico ao passo anterior) -->
+            <div class="max-w-xl mx-auto pt-10 pb-20 text-center">
+                <div class="relative inline-flex items-center justify-center mb-10">
+                    <div class="absolute inset-0 bg-emerald-50 rounded-full blur-2xl opacity-80 animate-pulse-glow"></div>
+                    <div class="relative w-28 h-28 bg-white border border-emerald-100 rounded-full flex items-center justify-center shadow-2xl">
+                        <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-white"><i data-lucide="check" class="w-10 h-10 stroke-[3]"></i></div>
+                    </div>
+                </div>
+                <h2 class="text-4xl font-serif text-stone-800 mb-4">Pedido Registrado!</h2>
+                <p class="text-stone-500 mb-10 text-lg font-light px-4">Horário pré-agendado. Envie a mensagem no WhatsApp para garantirmos sua vaga.</p>
+                <div class="bg-white p-8 rounded-[2rem] shadow-premium border border-nude-100 mb-10 text-left">
+                    <!-- Detalhes do resumo -->
+                </div>
+                <a id="whatsapp-link" href="#" target="_blank" class="w-full bg-[#25D366] hover:bg-[#1DA851] text-white font-bold text-lg py-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 mb-10">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i> Confirmar no WhatsApp
+                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="addToGoogleCalendar()" class="flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-nude-50 hover:bg-nude-100 text-stone-600 font-semibold text-sm"><i data-lucide="calendar" class="w-4 h-4"></i> Salvar no Google</button>
+                    <button onclick="downloadICS()" class="flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-nude-50 hover:bg-nude-100 text-stone-600 font-semibold text-sm"><i data-lucide="smartphone" class="w-4 h-4"></i> Salvar no iPhone</button>
+                </div>
+                <button onclick="resetApp()" class="mt-16 text-stone-400 hover:text-stone-700 font-semibold text-sm transition-colors border-b border-transparent hover:border-stone-700 pb-1">Voltar ao Início</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Botão Flutuante -->
+    <a href="https://wa.me/5548996207529?text=Ol%C3%A1,%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es" target="_blank" id="floating-whatsapp" class="fixed bottom-6 right-6 bg-stone-900 hover:bg-rose-600 text-white p-4 rounded-full shadow-premium transition-all duration-500 transform hover:scale-110 flex items-center justify-center z-50 group">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+
+        <script src="./app.config.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
